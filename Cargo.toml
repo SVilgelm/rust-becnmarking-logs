@@ -1,0 +1,18 @@
+[workspace]
+resolver = "2"
+members = []
+
+[workspace.dependencies]
+log = { version = "0.4.21", default-features = false, features = [
+    "max_level_info",
+] }
+
+[workspace.package]
+authors = ["Sergey Vilgelm <sergey@vilgelm.com>"]
+repository = "https://github.com/SVilgelm/rust-becnmarking-logs"
+license = "MIT or Apache-2.0"
+publish = false
+keywords = ["benchmarking", "logging"]
+categories = ["development-tools::debugging"]
+version = "0.1.0"
+edition = "2021"
