@@ -25,7 +25,7 @@ mod tests {
             env_logger::Builder::new()
                 .is_test(true)
                 .filter_level(log::LevelFilter::max())
-                .target(env_logger::Target::Stdout)
+                .target(env_logger::Target::Pipe(Box::new(std::io::empty())))
                 .init()
         });
     }
