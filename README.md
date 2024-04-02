@@ -26,31 +26,31 @@ Result:
      Running unittests src\lib.rs (target\release\deps\env_logger-aeb97c73992fea56.exe)
 
 running 5 tests
-test tests::bench_format        ... bench:         527 ns/iter (+/- 29)
-test tests::bench_kv            ... bench:         573 ns/iter (+/- 36)
-test tests::bench_kv_10         ... bench:       1,136 ns/iter (+/- 134)
-test tests::bench_kv_with_error ... bench:         648 ns/iter (+/- 45)
-test tests::bench_stat          ... bench:         446 ns/iter (+/- 51)
+test tests::bench_format        ... bench:         542 ns/iter (+/- 229)
+test tests::bench_kv            ... bench:         579 ns/iter (+/- 44)
+test tests::bench_kv_10         ... bench:       1,170 ns/iter (+/- 690)
+test tests::bench_kv_with_error ... bench:         651 ns/iter (+/- 27)
+test tests::bench_stat          ... bench:         439 ns/iter (+/- 29)
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 5 measured; 0 filtered out; finished in 6.24s
+test result: ok. 0 passed; 0 failed; 0 ignored; 5 measured; 0 filtered out; finished in 7.28s
 
      Running unittests src\lib.rs (target\release\deps\print_logger-8964df2620bf5d6a.exe)
 
 running 5 tests
-test tests::bench_format        ... bench:          76 ns/iter (+/- 14)
-test tests::bench_kv            ... bench:         211 ns/iter (+/- 8)
-test tests::bench_kv_10         ... bench:       1,981 ns/iter (+/- 52)
-test tests::bench_kv_with_error ... bench:         526 ns/iter (+/- 138)
-test tests::bench_stat          ... bench:          20 ns/iter (+/- 1)
+test tests::bench_format        ... bench:         210 ns/iter (+/- 87)
+test tests::bench_kv            ... bench:         340 ns/iter (+/- 69)
+test tests::bench_kv_10         ... bench:         732 ns/iter (+/- 173)
+test tests::bench_kv_with_error ... bench:         446 ns/iter (+/- 41)
+test tests::bench_stat          ... bench:         152 ns/iter (+/- 13)
 
-test result: ok. 0 passed; 0 failed; 0 ignored; 5 measured; 0 filtered out; finished in 4.36s
+test result: ok. 0 passed; 0 failed; 0 ignored; 5 measured; 0 filtered out; finished in 13.61s
 
      Running unittests src\lib.rs (target\release\deps\structured_logger-c3d78b8b6e1514d3.exe)
 
 running 5 tests
-test tests::bench_format        ... bench:         456 ns/iter (+/- 67)
-test tests::bench_kv            ... bench:         431 ns/iter (+/- 10)
-test tests::bench_kv_10         ... bench:       1,170 ns/iter (+/- 253)
-test tests::bench_kv_with_error ... bench:         528 ns/iter (+/- 323)
-test tests::bench_stat          ... bench:         329 ns/iter (+/- 18)
+test tests::bench_format        ... bench:         472 ns/iter (+/- 181)
+test tests::bench_kv            ... bench:         812 ns/iter (+/- 656)
+test tests::bench_kv_10         ... bench:       1,263 ns/iter (+/- 764)
+test tests::bench_kv_with_error ... bench:         527 ns/iter (+/- 128)
+test tests::bench_stat          ... bench:         339 ns/iter (+/- 61)
 ```

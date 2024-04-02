@@ -45,23 +45,15 @@ mod tests {
     extern crate test;
     use std::io::Write;
 
-    struct KVVisitor<'a> {
-        buf: &'a mut String,
-        visited: bool,
-    }
+    struct Visitor<'a>(&'a mut Vec<u8>);
 
-    impl<'kvs> log::kv::VisitSource<'kvs> for KVVisitor<'_> {
+    impl<'kvs> log::kv::VisitSource<'kvs> for Visitor<'_> {
         fn visit_pair(
             &mut self,
             key: log::kv::Key<'kvs>,
             value: log::kv::Value<'kvs>,
         ) -> Result<(), log::kv::Error> {
-            if self.visited {
-                self.buf.push_str(", ");
-            } else {
-                self.visited = true;
-            }
-            self.buf.push_str(format!("{}={}", key, value).as_str());
+            write!(self.0, " {}={}", key, value)?;
             Ok(())
         }
     }
@@ -73,28 +65,17 @@ mod tests {
         }
 
         fn log(&self, record: &log::Record) {
-            let mut out = std::io::empty();
+            let mut buf: Vec<u8> = vec![];
+            write!(buf, "{} - {}", record.level(), record.args()).unwrap();
+
             let pairs = record.key_values();
-            if pairs.count() == 0 {
-                out.write_fmt(format_args!("{} - {}", record.level(), record.args()))
-                    .unwrap();
-                return;
+            if pairs.count() != 0 {
+                write!(buf, ":").unwrap();
+                let mut visitor = Visitor(&mut buf);
+                pairs.visit(&mut visitor).unwrap();
             }
 
-            let mut buf = String::new();
-            let mut visitor = KVVisitor {
-                buf: &mut buf,
-                visited: false,
-            };
-            pairs.visit(&mut visitor).unwrap();
-
-            out.write_fmt(format_args!(
-                "{} - {}: {}",
-                record.level(),
-                record.args(),
-                buf
-            ))
-            .unwrap();
+            std::io::empty().write_all(&buf).unwrap();
         }
 
         fn flush(&self) {}
