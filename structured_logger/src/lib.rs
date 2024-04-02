@@ -1,20 +1,6 @@
 #![feature(test)]
-
-fn stat() {
-    log::info!("stat");
-}
-
-fn format(name: String) {
-    log::info!("hello {}", name);
-}
-
-fn kv(name: String) {
-    log::info!(name = name; "hello");
-}
-
 #[cfg(test)]
 mod tests {
-    use super::*;
     extern crate test;
 
     static ONCE: std::sync::Once = std::sync::Once::new();
@@ -30,7 +16,7 @@ mod tests {
     #[bench]
     fn bench_stat(b: &mut test::Bencher) {
         init_logger();
-        b.iter(|| stat());
+        b.iter(|| print_logger::stat());
     }
 
     #[bench]
@@ -38,7 +24,7 @@ mod tests {
         init_logger();
         b.iter(|| {
             let name = String::from("foo");
-            format(name);
+            print_logger::format(name);
         });
     }
 
@@ -47,7 +33,25 @@ mod tests {
         init_logger();
         b.iter(|| {
             let name = String::from("foo");
-            kv(name);
+            print_logger::kv(name);
+        });
+    }
+
+    #[bench]
+    fn bench_kv_with_error(b: &mut test::Bencher) {
+        init_logger();
+        b.iter(|| {
+            let name = String::from("foo");
+            print_logger::kv_with_error(name);
+        });
+    }
+
+    #[bench]
+    fn bench_kv_10(b: &mut test::Bencher) {
+        init_logger();
+        b.iter(|| {
+            let name = String::from("foo");
+            print_logger::kv_10(name);
         });
     }
 }

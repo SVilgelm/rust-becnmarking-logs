@@ -7,6 +7,8 @@ log = { version = "0.4.21", default-features = false, features = [
     "max_level_info",
     "kv_std",
 ] }
+print_logger = { path = "print_logger" }
+
 
 [workspace.package]
 authors = ["Sergey Vilgelm <sergey@vilgelm.com>"]

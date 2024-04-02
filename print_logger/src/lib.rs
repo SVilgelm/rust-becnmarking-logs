@@ -1,16 +1,43 @@
 #![feature(test)]
 
-fn stat() {
+use std::{error::Error, fmt};
+
+pub fn stat() {
     log::info!("stat");
 }
 
-fn format(name: String) {
+pub fn format(name: String) {
     log::info!("hello {}", name);
 }
 
-fn kv(name: String) {
+pub fn kv(name: String) {
     log::info!(name = name; "hello");
 }
+
+pub fn kv_with_error(name: String) {
+    let e = TestError;
+    log::info!(name = name, error:err = e; "hello");
+}
+
+pub fn kv_10(name: String) {
+    log::info!(name0 = name, name1 = name, name2 = name, name3 = name, name4 = name, name5 = name, name6 = name, name7 = name, name8 = name, name9 = name; "hello");
+}
+
+struct TestError;
+
+impl fmt::Display for TestError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "error")
+    }
+}
+
+impl fmt::Debug for TestError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "debug error")
+    }
+}
+
+impl Error for TestError {}
 
 #[cfg(test)]
 mod tests {
@@ -18,7 +45,6 @@ mod tests {
     extern crate test;
     use std::io::Write;
 
-    // formtatting extra key value pairs from kv_unstable feature
     struct KVVisitor<'a> {
         buf: &'a mut String,
         visited: bool,
@@ -106,6 +132,24 @@ mod tests {
         b.iter(|| {
             let name = String::from("foo");
             kv(name);
+        });
+    }
+
+    #[bench]
+    fn bench_kv_with_error(b: &mut test::Bencher) {
+        init_logger();
+        b.iter(|| {
+            let name = String::from("foo");
+            kv_with_error(name);
+        });
+    }
+
+    #[bench]
+    fn bench_kv_10(b: &mut test::Bencher) {
+        init_logger();
+        b.iter(|| {
+            let name = String::from("foo");
+            kv_10(name);
         });
     }
 }

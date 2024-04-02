@@ -11,4 +11,5 @@ edition.workspace = true
 
 [dependencies]
 log.workspace = true
+print_logger.workspace = true
 structured-logger = "1.0"

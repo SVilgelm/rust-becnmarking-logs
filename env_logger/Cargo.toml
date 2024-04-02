@@ -11,4 +11,5 @@ edition.workspace = true
 
 [dependencies]
 log.workspace = true
+print_logger.workspace = true
 env_logger = { version = "0.11", features = ["unstable-kv"] }
