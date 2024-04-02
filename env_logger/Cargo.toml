@@ -1,0 +1,18 @@
+[package]
+name = "env_logger"
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+publish.workspace = true
+keywords.workspace = true
+categories.workspace = true
+version.workspace = true
+edition.workspace = true
+
+[features]
+
+kv = ["log/kv_std", "env_logger/unstable-kv"]
+
+[dependencies]
+log.workspace = true
+env_logger = "0.11"
