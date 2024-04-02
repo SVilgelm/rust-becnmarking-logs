@@ -17,6 +17,7 @@ fn kv(name: String) {
 mod tests {
     use super::*;
     extern crate test;
+    use std::io::Write;
 
     // formtatting extra key value pairs from kv_unstable feature
     #[cfg(feature = "kv")]
@@ -50,9 +51,11 @@ mod tests {
 
         #[cfg(feature = "kv")]
         fn log(&self, record: &log::Record) {
+            let mut out = std::io::empty();
             let pairs = record.key_values();
             if pairs.count() == 0 {
-                eprintln!("{} - {}", record.level(), record.args());
+                out.write_fmt(format_args!("{} - {}", record.level(), record.args()))
+                    .unwrap();
                 return;
             }
 
@@ -63,12 +66,20 @@ mod tests {
             };
             pairs.visit(&mut visitor).unwrap();
 
-            eprintln!("{} - {}: {}", record.level(), record.args(), buf);
+            out.write_fmt(format_args!(
+                "{} - {}: {}",
+                record.level(),
+                record.args(),
+                buf
+            ))
+            .unwrap();
         }
 
         #[cfg(not(feature = "kv"))]
         fn log(&self, record: &log::Record) {
-            eprintln!("{} - {}", record.level(), record.args());
+            std::io::empty()
+                .write_fmt(format_args!("{} - {}", record.level(), record.args()))
+                .unwrap();
         }
 
         fn flush(&self) {}
