@@ -1,0 +1,17 @@
+[package]
+name = "structured_logger"
+authors.workspace = true
+repository.workspace = true
+license.workspace = true
+publish.workspace = true
+keywords.workspace = true
+categories.workspace = true
+version.workspace = true
+edition.workspace = true
+
+[features]
+kv = ["log/kv_std"]
+
+[dependencies]
+log.workspace = true
+structured-logger = "1.0"
