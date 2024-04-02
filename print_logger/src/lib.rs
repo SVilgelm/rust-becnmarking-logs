@@ -8,7 +8,6 @@ fn format(name: String) {
     log::info!("hello {}", name);
 }
 
-#[cfg(feature = "kv")]
 fn kv(name: String) {
     log::info!(name = name; "hello");
 }
@@ -20,13 +19,11 @@ mod tests {
     use std::io::Write;
 
     // formtatting extra key value pairs from kv_unstable feature
-    #[cfg(feature = "kv")]
     struct KVVisitor<'a> {
         buf: &'a mut String,
         visited: bool,
     }
 
-    #[cfg(feature = "kv")]
     impl<'kvs> log::kv::VisitSource<'kvs> for KVVisitor<'_> {
         fn visit_pair(
             &mut self,
@@ -49,7 +46,6 @@ mod tests {
             true
         }
 
-        #[cfg(feature = "kv")]
         fn log(&self, record: &log::Record) {
             let mut out = std::io::empty();
             let pairs = record.key_values();
@@ -73,13 +69,6 @@ mod tests {
                 buf
             ))
             .unwrap();
-        }
-
-        #[cfg(not(feature = "kv"))]
-        fn log(&self, record: &log::Record) {
-            std::io::empty()
-                .write_fmt(format_args!("{} - {}", record.level(), record.args()))
-                .unwrap();
         }
 
         fn flush(&self) {}
@@ -111,7 +100,6 @@ mod tests {
         });
     }
 
-    #[cfg(feature = "kv")]
     #[bench]
     fn bench_kv(b: &mut test::Bencher) {
         init_logger();

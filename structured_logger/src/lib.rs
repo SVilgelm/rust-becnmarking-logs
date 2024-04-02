@@ -8,7 +8,6 @@ fn format(name: String) {
     log::info!("hello {}", name);
 }
 
-#[cfg(feature = "kv")]
 fn kv(name: String) {
     log::info!(name = name; "hello");
 }
@@ -43,7 +42,6 @@ mod tests {
         });
     }
 
-    #[cfg(feature = "kv")]
     #[bench]
     fn bench_kv(b: &mut test::Bencher) {
         init_logger();

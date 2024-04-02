@@ -8,7 +8,6 @@ fn format(name: String) {
     log::info!("hello {}", name);
 }
 
-#[cfg(feature = "kv")]
 fn kv(name: String) {
     log::info!(name = name; "hello");
 }
@@ -23,7 +22,6 @@ mod tests {
     fn init_logger() {
         ONCE.call_once(|| {
             env_logger::Builder::new()
-                .is_test(true)
                 .filter_level(log::LevelFilter::max())
                 .target(env_logger::Target::Pipe(Box::new(std::io::empty())))
                 .init()
@@ -45,7 +43,6 @@ mod tests {
         });
     }
 
-    #[cfg(feature = "kv")]
     #[bench]
     fn bench_kv(b: &mut test::Bencher) {
         init_logger();

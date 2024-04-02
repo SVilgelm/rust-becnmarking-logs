@@ -9,9 +9,5 @@ publish.workspace = true
 keywords.workspace = true
 categories.workspace = true
 
-[features]
-
-kv = ["log/kv_std"]
-
 [dependencies]
 log.workspace = true

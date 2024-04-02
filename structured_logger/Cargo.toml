@@ -9,9 +9,6 @@ categories.workspace = true
 version.workspace = true
 edition.workspace = true
 
-[features]
-kv = ["log/kv_std"]
-
 [dependencies]
 log.workspace = true
 structured-logger = "1.0"

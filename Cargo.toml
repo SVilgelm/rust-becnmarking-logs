@@ -5,6 +5,7 @@ members = ["env_logger", "print_logger", "structured_logger"]
 [workspace.dependencies]
 log = { version = "0.4.21", default-features = false, features = [
     "max_level_info",
+    "kv_std",
 ] }
 
 [workspace.package]
